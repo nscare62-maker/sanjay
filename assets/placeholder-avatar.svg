@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050c1e"/>
+      <stop offset="50%" stop-color="#0a1835"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="cyberNeon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#00a8ff"/>
+    </linearGradient>
+    <radialGradient id="avatarGlow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="rgba(0, 240, 255, 0.25)"/>
+      <stop offset="100%" stop-color="rgba(0, 240, 255, 0)"/>
+    </radialGradient>
+    <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0, 240, 255, 0.08)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)"/>
+  <rect width="100%" height="100%" fill="url(#gridPattern)"/>
+  <circle cx="200" cy="180" r="160" fill="url(#avatarGlow)"/>
+
+  <!-- Cyber Tech Rings -->
+  <circle cx="200" cy="180" r="130" fill="none" stroke="rgba(0, 240, 255, 0.25)" stroke-width="1.5" stroke-dasharray="8 6"/>
+  <circle cx="200" cy="180" r="145" fill="none" stroke="rgba(0, 240, 255, 0.15)" stroke-width="1"/>
+
+  <!-- Futuristic Developer Silhouette / Cyber Avatar -->
+  <g transform="translate(0, 10)">
+    <!-- Shoulders / Torso with Cyber Suit -->
+    <path d="M 100 420 C 100 330, 140 300, 200 300 C 260 300, 300 330, 300 420 Z" fill="#0d1b38" stroke="url(#cyberNeon)" stroke-width="2"/>
+    <path d="M 140 420 L 160 330 L 200 350 L 240 330 L 260 420" fill="none" stroke="rgba(0, 240, 255, 0.4)" stroke-width="1.5"/>
+    
+    <!-- Neck -->
+    <rect x="180" y="240" width="40" height="70" rx="6" fill="#13274f" stroke="rgba(0, 240, 255, 0.3)" stroke-width="1.5"/>
+
+    <!-- Head / Jaw -->
+    <path d="M 145 160 C 145 100, 255 100, 255 160 C 255 210, 230 255, 200 260 C 170 255, 145 210, 145 160 Z" fill="#162e5c" stroke="url(#cyberNeon)" stroke-width="2"/>
+
+    <!-- Futuristic Cyber Visor / Smart Glasses -->
+    <rect x="150" y="150" width="100" height="24" rx="6" fill="#00f0ff" opacity="0.9"/>
+    <rect x="152" y="152" width="96" height="20" rx="4" fill="#030712"/>
+    <line x1="160" y1="162" x2="240" y2="162" stroke="#00f0ff" stroke-width="3"/>
+    <circle cx="165" cy="162" r="2" fill="#fff"/>
+    <circle cx="235" cy="162" r="2" fill="#fff"/>
+
+    <!-- Cyber Hair / Tech Headset -->
+    <path d="M 140 145 C 140 85, 260 85, 260 145 C 255 110, 225 100, 200 100 C 175 100, 145 110, 140 145 Z" fill="#09142b"/>
+    <rect x="134" y="150" width="12" height="30" rx="4" fill="#00f0ff"/>
+    <rect x="254" y="150" width="12" height="30" rx="4" fill="#00f0ff"/>
+  </g>
+
+  <!-- High-tech HUD Brackets & Crosshairs -->
+  <path d="M 30 30 L 70 30 M 30 30 L 30 70" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
+  <path d="M 370 30 L 330 30 M 370 30 L 370 70" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
+  <path d="M 30 450 L 70 450 M 30 450 L 30 410" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
+  <path d="M 370 450 L 330 450 M 370 450 L 370 410" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
+
+  <!-- Scanning Reticle Text -->
+  <text x="200" y="445" font-family="'Orbitron', sans-serif" font-size="12" fill="#00f0ff" text-anchor="middle" letter-spacing="3">SANJAY S // BIO-ID VERIFIED</text>
+  <text x="200" y="465" font-family="'JetBrains Mono', monospace" font-size="10" fill="rgba(255, 255, 255, 0.6)" text-anchor="middle" letter-spacing="1">CLICK TO UPLOAD YOUR PHOTO</text>
+</svg>
+

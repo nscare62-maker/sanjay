@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sanjay S | Full Stack Developer &bull; Data Analyst &bull; Game Developer</title>
+  <meta name="description" content="Immersive 3D Z-Axis Portfolio of Sanjay S, B.Tech AIDS 2nd Year at Gojan School of Business and Technology. Full Stack Developer, Data Analyst & Game Developer.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23030712'/><rect x='5' y='5' width='90' height='90' rx='16' fill='none' stroke='%2300f0ff' stroke-width='4'/><text x='50' y='65' font-family='sans-serif' font-weight='900' font-size='55' fill='%2300f0ff' text-anchor='middle'>S</text></svg>">
+  
+  <!-- Modern Sci-Fi & Clean Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for High-Tech Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Dynamic Multi-Color Theme Rotation on Every Login/Visit -->
+  <script>
+    (function() {
+      // Rotating theme sequence: 1st visit = Titanium White, 2nd = Cyber Cyan, 3rd = Stealth Black, 4th = Synth Purple, etc.
+      var ROTATION = ['white', 'cyan', 'black', 'purple', 'green', 'crimson', 'amber'];
+      var loginCount = parseInt(localStorage.getItem('sanjay_login_count') || '0', 10);
+      loginCount++;
+      localStorage.setItem('sanjay_login_count', String(loginCount));
+      var currentTheme = ROTATION[(loginCount - 1) % ROTATION.length];
+      document.documentElement.className = 'theme-' + currentTheme;
+      window.__INITIAL_THEME__ = currentTheme;
+      window.__LOGIN_COUNT__ = loginCount;
+    })();
+  </script>
+</head>
+<body class="theme-white">
+
+  <!-- ============================================================
+       FUTURISTIC CYBERNETIC INITIALIZER / LOADING SCREEN
+       ============================================================ -->
+  <div class="cyber-preloader" id="cyberPreloader">
+    <div class="preloader-content">
+      <div class="preloader-hex-core">
+        <div class="hex-spin-ring"></div>
+        <div class="hex-core-icon"><i class="fa-solid fa-microchip"></i></div>
+      </div>
+      <div class="preloader-brand">
+        <span class="preloader-sub">NEURAL LINK INITIALIZING // v2.4</span>
+        <h2 class="preloader-title">SANJAY S<span class="accent-dot">.</span></h2>
+        <span class="preloader-dept">B.TECH AIDS &bull; GOJAN SCHOOL OF BUSINESS &amp; TECH</span>
+      </div>
+      <div class="preloader-bar-wrap">
+        <div class="preloader-progress" id="preloaderProgress"></div>
+      </div>
+      <div class="preloader-status-text" id="preloaderStatusText">INITIALIZING 3D QUANTUM CORE... [0%]</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       BACKGROUND MOTION GRAPHIC CANVAS (3D WebGL / Canvas Space)
+       ============================================================ -->
+  <canvas id="motionGraphicCanvas"></canvas>
+  
+  <!-- Subtle Vignette & Cyber Grid Overlay -->
+  <div class="cyber-scanlines"></div>
+  <div class="cyber-vignette"></div>
+
+  <!-- ============================================================
+       CUSTOM CURSOR SYSTEM
+       ============================================================ -->
+  <div id="custom-cursor" class="custom-cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring">
+      <span class="corner top-left"></span>
+      <span class="corner top-right"></span>
+      <span class="corner bottom-left"></span>
+      <span class="corner bottom-right"></span>
+    </div>
+    <div class="cursor-label">TARGET</div>
+  </div>
+  <canvas id="cursor-trail-canvas"></canvas>
+
+  <!-- ============================================================
+       HEADS-UP DISPLAY (HUD) - STATIC OVERLAYS
+       ============================================================ -->
+  <!-- Top Navigation & Brand Bar -->
+  <header class="hud-header">
+    <div class="hud-brand" data-magnetic>
+      <div class="brand-glyph">
+        <span class="glyph-core">S</span>
+        <span class="glyph-ring"></span>
+      </div>
+      <div class="brand-info">
+        <span class="brand-name">SANJAY S.</span>
+        <span class="brand-tag">B.TECH AIDS // GOJAN SBT</span>
+      </div>
+    </div>
+
+    <!-- Live Depth / Warp Gauge in Center -->
+    <div class="hud-depth-gauge">
+      <div class="gauge-label"><i class="fa-solid fa-arrows-to-circle"></i> Z-TRAVEL DEPTH</div>
+      <div class="gauge-value" id="hudDepthValue">0000 <span class="unit">Z-MTR</span></div>
+      <div class="gauge-sector" id="hudGateName">GATE 0 // ENTRANCE VECTOR</div>
+    </div>
+
+    <!-- HUD Actions & Controls -->
+    <div class="hud-actions">
+      <!-- Cursor Theme Selector -->
+      <div class="hud-control-group" title="Switch Cursor Color Theme">
+        <button class="hud-btn theme-picker-btn" id="themePickerBtn" data-magnetic>
+          <span class="color-dot current-color"></span>
+          <span class="btn-text">THEME</span>
+        </button>
+        <div class="theme-dropdown" id="themeDropdown">
+          <button class="theme-opt active" data-color="purple"><span class="swatch purple"></span> Synth Purple</button>
+          <button class="theme-opt" data-color="black"><span class="swatch black"></span> Stealth Black</button>
+          <button class="theme-opt" data-color="white"><span class="swatch white"></span> Titanium White</button>
+          <button class="theme-opt" data-color="cyan"><span class="swatch cyan"></span> Cyber Cyan</button>
+          <button class="theme-opt" data-color="crimson"><span class="swatch crimson"></span> Neon Crimson</button>
+          <button class="theme-opt" data-color="green"><span class="swatch green"></span> Matrix Green</button>
+          <button class="theme-opt" data-color="amber"><span class="swatch amber"></span> Solar Amber</button>
+        </div>
+      </div>
+
+      <!-- Download Resume / CV -->
+      <a href="assets/sanjay-resume.html" target="_blank" class="hud-btn resume-hud-btn" id="hudResumeBtn" title="View & Print Sanjay's Official Resume (PDF)" data-magnetic>
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span class="btn-text">RESUME</span>
+      </a>
+
+      <!-- Audio Synthesizer Toggle -->
+      <button class="hud-btn" id="audioToggleBtn" title="Toggle Sci-Fi Web Audio SFX" data-magnetic>
+        <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+        <span class="btn-text" id="audioText">AUDIO: ON</span>
+      </button>
+
+      <!-- Warp to Surface Button -->
+      <button class="hud-btn primary-hud-btn" id="surfaceJumpBtn" title="Warp Back to Surface" data-magnetic>
+        <i class="fa-solid fa-angles-up"></i>
+        <span class="btn-text">SURFACE</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Bottom HUD Status Bar & Depth Controls -->
+  <footer class="hud-footer">
+    <div class="footer-status">
+      <span class="status-indicator"></span>
+      <span class="status-text">NEURAL LINK: SYNCHRONIZED</span>
+      <span class="divider">|</span>
+      <span class="coord-text" id="hudCoords">Z-POS: 0.00 // VELOCITY: 0.00</span>
+    </div>
+
+    <!-- Scroll Guidance Instruction -->
+    <div class="scroll-instruction" id="scrollInstruction">
+      <div class="scroll-mouse-icon">
+        <span class="wheel-pip"></span>
+      </div>
+      <div class="instruction-text">
+        <span class="main-text">SCROLL WHEEL OR SWIPE TO DIVE INSIDE</span>
+        <span class="sub-text">TRAVEL THROUGH THE Z-AXIS DIMENSION GATES</span>
+      </div>
+      <button class="dive-action-btn" id="diveNextBtn" data-magnetic>
+        <span>DIVE IN</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </div>
+
+    <div class="footer-shortcuts">
+      <span class="badge-key"><i class="fa-solid fa-arrows-up-down"></i> SCROLL</span>
+      <span class="badge-key">W / S</span>
+      <span class="badge-key">TOUCH DIVE</span>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       3D TUNNEL WORLD (Z-AXIS PERSPECTIVE VIEWPORT)
+       When user scrolls, this entire 3D world translates along Z!
+       Sections zoom in from the distance, reveal details, and vanish behind!
+       ============================================================ -->
+  <main class="tunnel-viewport" id="tunnelViewport">
+    <div class="tunnel-world" id="tunnelWorld">
+
+      <!-- ==========================================
+           GATE 0: ENTRANCE VECTOR (Z: 0 to 1000)
+           ========================================== -->
+      <section class="dimension-gate gate-origin" id="gate-0" data-z-origin="0">
+        <div class="gate-frame extra-wide-frame">
+          <div class="hero-split-layout">
+
+            <!-- LEFT COLUMN: HERO DETAILS & IDENTITY -->
+            <div class="hero-info-column">
+              <div class="sys-badge anim-from-top">
+                <span class="pulse-point"></span>
+                SYSTEM CORE ONLINE // IDENTITY VERIFIED
+              </div>
+
+              <h1 class="hero-glitch-title anim-from-top" data-text="SANJAY S">
+                SANJAY S<span class="accent-dot">.</span>
+              </h1>
+
+              <div class="hero-academic-banner anim-from-top">
+                <span class="academic-tag"><i class="fa-solid fa-graduation-cap"></i> B.Tech AIDS (2nd Year)</span>
+                <span class="school-name"><i class="fa-solid fa-building-columns"></i> Gojan School of Business and Technology</span>
+              </div>
+
+              <p class="hero-description anim-from-left">
+                Architecting the future at the convergence of 
+                <span class="text-highlight">Full Stack Web Engineering</span>, 
+                <span class="text-highlight">Artificial Intelligence &amp; Data Analytics</span>, and 
+                <span class="text-highlight">Interactive Game Development</span>.
+              </p>
+
+              <div class="specialty-capsules anim-from-left">
+                <div class="capsule" data-magnetic>
+                  <i class="fa-solid fa-layer-group"></i>
+                  <span>Full Stack Developer</span>
+                </div>
+                <div class="capsule" data-magnetic>
+                  <i class="fa-solid fa-chart-line"></i>
+                  <span>Data Analyst</span>
+                </div>
+                <div class="capsule" data-magnetic>
+                  <i class="fa-solid fa-gamepad"></i>
+                  <span>Game Developer</span>
+                </div>
+              </div>
+
+              <div class="hero-cta-cluster anim-from-bottom">
+                <button class="cyber-btn primary-btn" id="diveStartBtn" data-magnetic>
+                  <span class="btn-glow"></span>
+                  <i class="fa-solid fa-shuttle-space"></i>
+                  <span>START HYPER-DIVE</span>
+                </button>
+                <button class="cyber-btn secondary-btn" id="quickProjectsBtn" data-magnetic>
+                  <i class="fa-solid fa-folder-open"></i>
+                  <span>VIEW 6 PROJECTS</span>
+                </button>
+                <a href="assets/sanjay-resume.html" target="_blank" class="cyber-btn resume-btn" id="heroResumeBtn" title="View & Print Official Resume (PDF)" data-magnetic>
+                  <i class="fa-solid fa-file-arrow-down"></i>
+                  <span>VIEW RESUME / CV</span>
+                </a>
+                <button class="cyber-btn tertiary-btn" id="launchLabBtn" data-magnetic>
+                  <i class="fa-solid fa-gamepad"></i>
+                  <span>PLAY MINI GAME</span>
+                </button>
+              </div>
+
+              <div class="z-dive-cue anim-from-bottom">
+                <span class="cue-ring"></span>
+                <span class="cue-text"><i class="fa-solid fa-angles-down"></i> SCROLL WHEEL TO PLUNGE DEEPER <i class="fa-solid fa-angles-down"></i></span>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN: HOLOGRAPHIC IMAGE CARD (anim-from-right) -->
+            <div class="hero-image-card anim-from-right" data-tilt>
+              <div class="hero-card-bracket top-left"></div>
+              <div class="hero-card-bracket top-right"></div>
+              <div class="hero-card-bracket bottom-left"></div>
+              <div class="hero-card-bracket bottom-right"></div>
+
+              <div class="hero-card-header">
+                <span class="pulse-point"></span>
+                <span class="hero-card-tag">PORTRAIT // SANJAY.S</span>
+                <span class="hero-card-status">ONLINE</span>
+              </div>
+
+              <div class="hero-photo-wrapper">
+                <div class="photo-scan-beam"></div>
+                <img id="heroProfileImg" src="assets/sanjay-portrait.jpg" onerror="this.onerror=null; this.src='assets/sanjay.jpg';" alt="Sanjay S - Full Stack Developer & AI Data Science Scholar">
+                
+                <label class="hero-photo-upload-badge" title="Click to choose a photo from your computer">
+                  <input type="file" id="heroPhotoUpload" accept="image/*">
+                  <i class="fa-solid fa-camera"></i>
+                  <span>UPLOAD PHOTO</span>
+                </label>
+              </div>
+
+              <div class="hero-card-footer">
+                <div class="hero-badge-title">SANJAY S.</div>
+                <div class="hero-badge-sub">B.Tech AIDS &bull; 2nd Year</div>
+                <div class="hero-badge-institution"><i class="fa-solid fa-building-columns"></i> Gojan School of Business &amp; Tech</div>
+                <div class="hero-card-chips">
+                  <span class="mini-chip"><i class="fa-solid fa-code"></i> Full Stack</span>
+                  <span class="mini-chip"><i class="fa-solid fa-chart-line"></i> Data Analyst</span>
+                  <span class="mini-chip"><i class="fa-solid fa-gamepad"></i> Game Dev</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           GATE 1: BIOGRAPHY & SYSTEM PROFILE (Z: 1400)
+           ========================================== -->
+      <section class="dimension-gate gate-profile" id="gate-1" data-z-origin="1500">
+        <div class="gate-frame wide-frame">
+          <div class="section-header-pill anim-from-top">
+            <span class="sector-code">SECTOR 01</span>
+            <h2 class="sector-title">NEURAL DOSSIER & ORIGIN</h2>
+          </div>
+
+          <div class="profile-grid">
+            <!-- Left: Terminal Bio Window -->
+            <div class="cyber-terminal-card anim-from-left" data-tilt>
+              <div class="terminal-bar">
+                <div class="win-buttons">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <div class="win-title"><i class="fa-solid fa-terminal"></i> sanjay_s_core_profile.sh</div>
+                <div class="win-status">B.TECH AIDS</div>
+              </div>
+              <div class="terminal-content">
+                <p class="term-line"><span class="prompt">$</span> <span class="cmd">whoami</span></p>
+                <p class="term-response">
+                  &gt; <strong class="glow-text">Sanjay S</strong> — 2nd Year B.Tech Artificial Intelligence & Data Science Undergraduate at <strong class="glow-text">Gojan School of Business and Technology</strong>.
+                </p>
+                <p class="term-line"><span class="prompt">$</span> <span class="cmd">cat mission_statement.md</span></p>
+                <p class="term-response">
+                  Passionate technologist driving impact through full-stack digital architectures, modern reactive interfaces, complex database modeling, and automated machine learning pipelines. Whether designing enterprise software or programming game physics and rendering loops, I build with obsessive attention to performance, aesthetics, and user experience.
+                </p>
+                <p class="term-line"><span class="prompt">$</span> <span class="cmd">status --all</span></p>
+                <div class="term-status-tags">
+                  <span class="status-tag"><i class="fa-solid fa-check"></i> Clean Code Practitioner</span>
+                  <span class="status-tag"><i class="fa-solid fa-check"></i> Math & Spatial Thinker</span>
+                  <span class="status-tag"><i class="fa-solid fa-check"></i> Agile Builder</span>
+                  <span class="status-tag"><i class="fa-solid fa-check"></i> Continuous Learner</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Academic & Core Matrix Metrics -->
+            <div class="metrics-column anim-from-right">
+              <!-- College Badge Card -->
+              <div class="info-metric-card" data-tilt>
+                <div class="card-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="card-metric-info">
+                  <span class="metric-caption">ACADEMIC FOUNDATION</span>
+                  <h3 class="metric-heading">B.Tech AI & Data Science</h3>
+                  <p class="metric-sub">2nd Year Scholar</p>
+                  <div class="institution-pill">
+                    <i class="fa-solid fa-university"></i> Gojan School of Business and Technology
+                  </div>
+                </div>
+              </div>
+
+              <!-- Metrics Stats Triplets -->
+              <div class="stats-triplet">
+                <div class="stat-box" data-tilt>
+                  <div class="stat-number" data-count="6">06</div>
+                  <div class="stat-label">FLAGSHIP PROJECTS</div>
+                  <div class="stat-sub">Production-grade web & apps</div>
+                </div>
+                <div class="stat-box" data-tilt>
+                  <div class="stat-number">3+</div>
+                  <div class="stat-label">CORE DOMAINS</div>
+                  <div class="stat-sub">Full Stack, AI/DS, Game Dev</div>
+                </div>
+                <div class="stat-box" data-tilt>
+                  <div class="stat-number">100%</div>
+                  <div class="stat-label">INNOVATION DRIVE</div>
+                  <div class="stat-sub">End-to-end execution</div>
+                </div>
+              </div>
+
+              <!-- Quick Pillars -->
+              <div class="core-pillars anim-from-bottom">
+                <div class="pillar-item">
+                  <span class="pillar-icon"><i class="fa-solid fa-code"></i></span>
+                  <div>
+                    <h4>Full Stack Architecture</h4>
+                    <p>Modern frontend frameworks, scalable backends, REST APIs, databases.</p>
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <span class="pillar-icon"><i class="fa-solid fa-chart-pie"></i></span>
+                  <div>
+                    <h4>Data Intelligence & ML</h4>
+                    <p>Feature engineering, exploratory analysis, automated ML benchmarks.</p>
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <span class="pillar-icon"><i class="fa-solid fa-vr-cardboard"></i></span>
+                  <div>
+                    <h4>Game Development & 3D</h4>
+                    <p>WebGL, 3D math, canvas rendering, game state management & physics.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Honors & Certifications Credential Strip -->
+              <div class="honors-strip anim-from-bottom">
+                <div class="honor-badge" data-magnetic><i class="fa-solid fa-certificate"></i> <span>Full Stack Web Certified</span></div>
+                <div class="honor-badge" data-magnetic><i class="fa-solid fa-brain"></i> <span>Machine Learning &amp; Feature Eng</span></div>
+                <div class="honor-badge" data-magnetic><i class="fa-solid fa-shield-halved"></i> <span>Cybersecurity Posture Auditing</span></div>
+                <div class="honor-badge" data-magnetic><i class="fa-solid fa-cubes"></i> <span>3D WebGL &amp; Game Architecture</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           GATE 2: THE 6 FLAGSHIP PROJECTS (Z: 3000)
+           ========================================== -->
+      <section class="dimension-gate gate-projects" id="gate-2" data-z-origin="3000">
+        <div class="gate-frame extra-wide-frame">
+          <div class="section-header-pill anim-from-top">
+            <span class="sector-code">SECTOR 02</span>
+            <h2 class="sector-title">FLAGSHIP PROJECTS MATRIX (06)</h2>
+            <p class="sector-subtitle">Interactive portals engineered with production-ready architectures. Click any project card to inspect deep technical specs.</p>
+          </div>
+
+          <!-- Project Category Filter & Deck Page Toolbar -->
+          <div class="project-deck-toolbar anim-from-top">
+            <!-- Category Filter Pills (Click Events) -->
+            <div class="project-filters">
+              <button class="filter-btn active" data-filter="all" data-magnetic><i class="fa-solid fa-shapes"></i> ALL (6)</button>
+              <button class="filter-btn" data-filter="fullstack" data-magnetic><i class="fa-solid fa-code"></i> FULL STACK</button>
+              <button class="filter-btn" data-filter="ai-data" data-magnetic><i class="fa-solid fa-brain"></i> DATA & AI</button>
+              <button class="filter-btn" data-filter="security" data-magnetic><i class="fa-solid fa-shield-halved"></i> SECURITY</button>
+              <button class="filter-btn" data-filter="productivity" data-magnetic><i class="fa-solid fa-clock"></i> PRODUCTIVITY</button>
+            </div>
+
+            <!-- Deck Page Switcher (Directly solves viewing projects #04, #05, #06) -->
+            <div class="deck-page-controls">
+              <span class="deck-lbl"><i class="fa-solid fa-layer-group"></i> VIEW DECK:</span>
+              <button class="deck-btn active" id="deck1Btn" data-deck="1" data-magnetic>
+                <i class="fa-solid fa-table-cells-large"></i> DECK 01 // #01-#03
+              </button>
+              <button class="deck-btn" id="deck2Btn" data-deck="2" data-magnetic>
+                <i class="fa-solid fa-table-cells-large"></i> DECK 02 // #04-#06
+              </button>
+              <button class="deck-btn" id="deckAllBtn" data-deck="all" data-magnetic>
+                <i class="fa-solid fa-grip"></i> ALL 06
+              </button>
+              <div class="deck-nav-arrows">
+                <button class="deck-arrow-btn" id="prevDeckBtn" title="Previous Projects Deck" data-magnetic><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="deck-arrow-btn" id="nextDeckBtn" title="Next Projects Deck" data-magnetic><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6 High-Tech Holographic Project Portals -->
+          <div class="projects-matrix-grid" id="projectsMatrixGrid">
+
+            <!-- 1. Svarsh Technology Website -->
+            <article class="project-card anim-from-left" data-deck="1" data-category="fullstack" data-project-id="svarsh-tech" data-tilt>
+              <div class="card-glow-overlay"></div>
+              <div class="card-top-meta">
+                <span class="proj-badge tech-badge"><i class="fa-solid fa-building"></i> CORPORATE TECH</span>
+                <span class="proj-index">#01</span>
+              </div>
+              <div class="project-holo-preview svarsh-tech-preview">
+                <div class="holo-screen-mock">
+                  <div class="mock-nav">
+                    <span></span><span></span><span></span>
+                    <div class="mock-address">svarsh.tech/enterprise</div>
+                  </div>
+                  <div class="mock-body">
+                    <div class="mock-hero-text"></div>
+                    <div class="mock-card-strip">
+                      <span></span><span></span><span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="holo-grid-lines"></div>
+              </div>
+              <div class="card-body">
+                <h3 class="proj-name">Svarsh Technology Website</h3>
+                <p class="proj-desc">High-performance corporate web portal engineered with modern responsive layout, interactive service showcases, and automated lead inquiry pipelines.</p>
+                <div class="tech-pill-list">
+                  <span class="tech-pill">React</span>
+                  <span class="tech-pill">Node.js</span>
+                  <span class="tech-pill">Tailwind</span>
+                  <span class="tech-pill">REST APIs</span>
+                </div>
+              </div>
+              <div class="card-footer-action">
+                <button class="project-inspect-btn" data-project="svarsh-tech" data-magnetic>
+                  <span>INSPECT SYSTEM</span>
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <div class="proj-card-actions-row">
+                  <a href="#" class="card-quick-pill live-pill" title="Launch Svarsh Tech Live Demo" data-magnetic>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> LIVE DEMO
+                  </a>
+                  <a href="https://github.com" target="_blank" class="card-quick-pill" title="View Source on GitHub" data-magnetic>
+                    <i class="fa-brands fa-github"></i> GITHUB
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- 2. Svarsh E-commerce and LMS App -->
+            <article class="project-card anim-from-top" data-deck="1" data-category="fullstack" data-project-id="svarsh-ecom-lms" data-tilt>
+              <div class="card-glow-overlay"></div>
+              <div class="card-top-meta">
+                <span class="proj-badge ecom-badge"><i class="fa-solid fa-cart-shopping"></i> E-COM & LMS HYBRID</span>
+                <span class="proj-index">#02</span>
+              </div>
+              <div class="project-holo-preview svarsh-lms-preview">
+                <div class="holo-screen-mock">
+                  <div class="mock-nav">
+                    <span></span><span></span><span></span>
+                    <div class="mock-address">svarsh.learn/portal</div>
+                  </div>
+                  <div class="mock-body">
+                    <div class="mock-player-container">
+                      <div class="mock-play-btn"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="mock-card-strip">
+                      <span class="prog-bar"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="holo-grid-lines"></div>
+              </div>
+              <div class="card-body">
+                <h3 class="proj-name">Svarsh E-commerce & LMS App</h3>
+                <p class="proj-desc">Dual-engine enterprise platform fusing high-throughput digital commerce shopping with an interactive Learning Management System and course enrollment.</p>
+                <div class="tech-pill-list">
+                  <span class="tech-pill">Full Stack</span>
+                  <span class="tech-pill">Redux</span>
+                  <span class="tech-pill">Authentication</span>
+                  <span class="tech-pill">Course Engine</span>
+                </div>
+              </div>
+              <div class="card-footer-action">
+                <button class="project-inspect-btn" data-project="svarsh-ecom-lms" data-magnetic>
+                  <span>INSPECT SYSTEM</span>
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <div class="proj-card-actions-row">
+                  <a href="#" class="card-quick-pill live-pill" title="Launch Svarsh LMS Live Demo" data-magnetic>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> LIVE DEMO
+                  </a>
+                  <a href="https://github.com" target="_blank" class="card-quick-pill" title="View Source on GitHub" data-magnetic>
+                    <i class="fa-brands fa-github"></i> GITHUB
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- 3. CyberGuard App -->
+            <article class="project-card anim-from-right" data-deck="1" data-category="security" data-project-id="cyberguard" data-tilt>
+              <div class="card-glow-overlay"></div>
+              <div class="card-top-meta">
+                <span class="proj-badge sec-badge"><i class="fa-solid fa-shield-halved"></i> CYBER SECURITY</span>
+                <span class="proj-index">#03</span>
+              </div>
+              <div class="project-holo-preview cyberguard-preview">
+                <div class="holo-screen-mock">
+                  <div class="mock-radar-circle">
+                    <div class="radar-sweep"></div>
+                    <div class="radar-blip"></div>
+                  </div>
+                  <div class="threat-alert-box">
+                    <i class="fa-solid fa-triangle-exclamation"></i> THREATS MONITORED: 0 CRITICAL
+                  </div>
+                </div>
+                <div class="holo-grid-lines"></div>
+              </div>
+              <div class="card-body">
+                <h3 class="proj-name">CyberGuard App</h3>
+                <p class="proj-desc">Real-time threat monitoring and vulnerability assessment dashboard with interactive network visualizer, alert triggers, and security posture auditing.</p>
+                <div class="tech-pill-list">
+                  <span class="tech-pill">Cybersecurity</span>
+                  <span class="tech-pill">Real-time Logs</span>
+                  <span class="tech-pill">Analytics</span>
+                  <span class="tech-pill">Audit Engine</span>
+                </div>
+              </div>
+              <div class="card-footer-action">
+                <button class="project-inspect-btn" data-project="cyberguard" data-magnetic>
+                  <span>INSPECT SYSTEM</span>
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <div class="proj-card-actions-row">
+                  <a href="#" class="card-quick-pill live-pill" title="Launch CyberGuard Live Demo" data-magnetic>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> LIVE DEMO
+                  </a>
+                  <a href="https://github.com" target="_blank" class="card-quick-pill" title="View Source on GitHub" data-magnetic>
+                    <i class="fa-brands fa-github"></i> GITHUB
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- 4. WorkSessionTracker App -->
+            <article class="project-card anim-from-left" data-deck="2" data-category="productivity" data-project-id="worksession" data-tilt>
+              <div class="card-glow-overlay"></div>
+              <div class="card-top-meta">
+                <span class="proj-badge prod-badge"><i class="fa-solid fa-hourglass-half"></i> PRODUCTIVITY SUITE</span>
+                <span class="proj-index">#04</span>
+              </div>
+              <div class="project-holo-preview worksession-preview">
+                <div class="holo-screen-mock">
+                  <div class="mock-timer-display">
+                    <span class="timer-digits">03:45:12</span>
+                    <span class="timer-state">DEEP WORK FOCUS</span>
+                  </div>
+                  <div class="mock-activity-bars">
+                    <div class="act-bar h-60"></div>
+                    <div class="act-bar h-90"></div>
+                    <div class="act-bar h-40"></div>
+                    <div class="act-bar h-80"></div>
+                    <div class="act-bar h-100 active-bar"></div>
+                  </div>
+                </div>
+                <div class="holo-grid-lines"></div>
+              </div>
+              <div class="card-body">
+                <h3 class="proj-name">WorkSessionTracker App</h3>
+                <p class="proj-desc">Precision time-audit and productivity engine providing deep session logging, focus score metrics, interval routines, and analytical heatmaps.</p>
+                <div class="tech-pill-list">
+                  <span class="tech-pill">React</span>
+                  <span class="tech-pill">Analytics</span>
+                  <span class="tech-pill">Local Cache</span>
+                  <span class="tech-pill">Heatmaps</span>
+                </div>
+              </div>
+              <div class="card-footer-action">
+                <button class="project-inspect-btn" data-project="worksession" data-magnetic>
+                  <span>INSPECT SYSTEM</span>
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <div class="proj-card-actions-row">
+                  <a href="#" class="card-quick-pill live-pill" title="Launch WorkSessionTracker Live Demo" data-magnetic>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> LIVE DEMO
+                  </a>
+                  <a href="https://github.com" target="_blank" class="card-quick-pill" title="View Source on GitHub" data-magnetic>
+                    <i class="fa-brands fa-github"></i> GITHUB
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- 5. Retail Website -->
+            <article class="project-card anim-from-bottom" data-deck="2" data-category="fullstack" data-project-id="retail-web" data-tilt>
+              <div class="card-glow-overlay"></div>
+              <div class="card-top-meta">
+                <span class="proj-badge retail-badge"><i class="fa-solid fa-store"></i> COMMERCE RETAIL</span>
+                <span class="proj-index">#05</span>
+              </div>
+              <div class="project-holo-preview retail-preview">
+                <div class="holo-screen-mock">
+                  <div class="mock-retail-shelf">
+                    <div class="item-card"><i class="fa-solid fa-bag-shopping"></i></div>
+                    <div class="item-card active-card"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="item-card"><i class="fa-solid fa-tag"></i></div>
+                  </div>
+                  <div class="cart-pill-preview">
+                    <i class="fa-solid fa-cart-shopping"></i> CART: 3 ITEMS READY
+                  </div>
+                </div>
+                <div class="holo-grid-lines"></div>
+              </div>
+              <div class="card-body">
+                <h3 class="proj-name">Retail Website</h3>
+                <p class="proj-desc">Omnichannel modern retail storefront with instant faceted search, live inventory sync, dynamic shopping cart, and conversion-optimized checkout UX.</p>
+                <div class="tech-pill-list">
+                  <span class="tech-pill">Full Stack</span>
+                  <span class="tech-pill">Inventory Sync</span>
+                  <span class="tech-pill">Cart Flow</span>
+                  <span class="tech-pill">Tailwind</span>
+                </div>
+              </div>
+              <div class="card-footer-action">
+                <button class="project-inspect-btn" data-project="retail-web" data-magnetic>
+                  <span>INSPECT SYSTEM</span>
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <div class="proj-card-actions-row">
+                  <a href="#" class="card-quick-pill live-pill" title="Launch Retail Storefront Live Demo" data-magnetic>
+                    <i class="fa-solid fa-satellite-dish"></i> LIVE DEMO
+                  </a>
+                  <a href="https://github.com" target="_blank" class="card-quick-pill" title="View Source on GitHub" data-magnetic>
+                    <i class="fa-brands fa-github"></i> GITHUB
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- 6. AutoMLFE Website -->
+            <article class="project-card anim-from-right" data-deck="2" data-category="ai-data" data-project-id="automlfe" data-tilt>
+              <div class="card-glow-overlay"></div>
+              <div class="card-top-meta">
+                <span class="proj-badge ai-badge"><i class="fa-solid fa-dna"></i> AUTO-ML & FE ENGINE</span>
+                <span class="proj-index">#06</span>
+              </div>
+              <div class="project-holo-preview automlfe-preview">
+                <div class="holo-screen-mock">
+                  <div class="mock-neural-tree">
+                    <div class="tree-node root"><span>DATASET</span></div>
+                    <div class="tree-branches">
+                      <div class="tree-node child"><span>FE ENGINE</span></div>
+                      <div class="tree-node child active"><span>MODEL BENCH</span></div>
+                    </div>
+                  </div>
+                  <div class="accuracy-score-box">
+                    <span>ACCURACY: 98.4%</span>
+                    <div class="metric-meter"><div class="meter-fill"></div></div>
+                  </div>
+                </div>
+                <div class="holo-grid-lines"></div>
+              </div>
+              <div class="card-body">
+                <h3 class="proj-name">AutoMLFE Website</h3>
+                <p class="proj-desc">Automated Machine Learning & Feature Engineering web tool that automates feature extraction, data synthesis, model training, and performance comparison.</p>
+                <div class="tech-pill-list">
+                  <span class="tech-pill">Python</span>
+                  <span class="tech-pill">AutoML</span>
+                  <span class="tech-pill">Scikit-Learn</span>
+                  <span class="tech-pill">Data Insights</span>
+                </div>
+              </div>
+              <div class="card-footer-action">
+                <button class="project-inspect-btn" data-project="automlfe" data-magnetic>
+                  <span>INSPECT SYSTEM</span>
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <div class="proj-card-actions-row">
+                  <a href="#" class="card-quick-pill live-pill" title="Launch AutoMLFE Suite Live Demo" data-magnetic>
+                    <i class="fa-solid fa-satellite-dish"></i> LIVE DEMO
+                  </a>
+                  <a href="https://github.com" target="_blank" class="card-quick-pill" title="View Source on GitHub" data-magnetic>
+                    <i class="fa-brands fa-github"></i> GITHUB
+                  </a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Bottom Deck Indicator & Quick Flip Action -->
+          <div class="deck-indicator-bar anim-from-bottom" id="deckIndicatorBar">
+            <span class="indicator-text" id="deckIndicatorText">VIEWING DECK 01 // PROJECTS #01 - #03</span>
+            <button class="deck-quick-flip-btn" id="deckQuickFlipBtn" data-magnetic>
+              <span id="deckQuickFlipText">SWITCH TO PROJECTS #04 - #06</span>
+              <i class="fa-solid fa-arrow-right" id="deckQuickFlipIcon"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           GATE 3: ARSENAL VECTOR / TECHNICAL SKILLS (Z: 4500)
+           ========================================== -->
+      <section class="dimension-gate gate-arsenal" id="gate-3" data-z-origin="4500">
+        <div class="gate-frame wide-frame">
+          <div class="section-header-pill anim-from-top">
+            <span class="sector-code">SECTOR 03</span>
+            <h2 class="sector-title">TECHNICAL ARSENAL & SKILLS MATRIX</h2>
+            <p class="sector-subtitle">Multi-disciplinary technical proficiencies across Full Stack, AI & Data Science, and Game Architecture.</p>
+          </div>
+
+          <div class="arsenal-categories-grid">
+
+            <!-- Category 1: Full Stack Development -->
+            <div class="skill-category-card anim-from-left" data-tilt>
+              <div class="category-header">
+                <div class="cat-icon fullstack-icon"><i class="fa-solid fa-code"></i></div>
+                <div>
+                  <h3 class="cat-title">Full Stack Development</h3>
+                  <span class="cat-badge">Web & Microservices</span>
+                </div>
+              </div>
+              <p class="cat-summary">Crafting fluid client experiences backed by reliable, scalable backend APIs and resilient data models.</p>
+              
+              <div class="skills-bar-container">
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>React.js & Next.js</span><span class="pct">92%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 92%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Node.js & Express</span><span class="pct">88%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 88%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>JavaScript (ES6+) & TypeScript</span><span class="pct">90%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 90%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>MongoDB / SQL / PostgreSQL</span><span class="pct">85%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 85%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Tailwind CSS & Modern CSS3</span><span class="pct">95%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 95%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 2: AI & Data Analysis -->
+            <div class="skill-category-card anim-from-top" data-tilt>
+              <div class="category-header">
+                <div class="cat-icon aids-icon"><i class="fa-solid fa-brain"></i></div>
+                <div>
+                  <h3 class="cat-title">AI & Data Analysis (AIDS)</h3>
+                  <span class="cat-badge">Intelligence & Modeling</span>
+                </div>
+              </div>
+              <p class="cat-summary">Transforming unstructured raw data into actionable intelligence, feature-engineered matrices, and predictive machine models.</p>
+              
+              <div class="skills-bar-container">
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Python (Pandas, NumPy, Scipy)</span><span class="pct">92%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 92%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Machine Learning & Scikit-Learn</span><span class="pct">86%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 86%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Feature Engineering & Pipelines</span><span class="pct">89%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 89%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Exploratory Data Analysis (EDA)</span><span class="pct">94%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 94%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Data Visualization & Tableau / BI</span><span class="pct">88%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 88%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 3: Game Development & 3D Math -->
+            <div class="skill-category-card anim-from-right" data-tilt>
+              <div class="category-header">
+                <div class="cat-icon game-icon"><i class="fa-solid fa-gamepad"></i></div>
+                <div>
+                  <h3 class="cat-title">Game Development & 3D</h3>
+                  <span class="cat-badge">Simulation & Physics</span>
+                </div>
+              </div>
+              <p class="cat-summary">Engineering real-time physics loops, spatial mathematics, WebGL rendering, collision detection, and immersive player feedback.</p>
+              
+              <div class="skills-bar-container">
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>WebGL & Three.js 3D Graphics</span><span class="pct">87%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 87%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Game Physics & State Machines</span><span class="pct">85%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 85%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>C# & Unity Engine Principles</span><span class="pct">80%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 80%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>HTML5 Canvas & 2D Game Engines</span><span class="pct">92%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 92%;"></div></div>
+                </div>
+                <div class="skill-meter-row">
+                  <div class="meter-info"><span>Spatial Math, Vectors & Quaternions</span><span class="pct">86%</span></div>
+                  <div class="bar-track"><div class="bar-fill" style="--val: 86%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Interactive Tech Tag Cloud -->
+          <div class="tech-floating-matrix anim-from-bottom">
+            <span class="matrix-chip" data-magnetic><i class="fa-brands fa-react"></i> React</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-brands fa-node-js"></i> Node.js</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-brands fa-python"></i> Python</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-brands fa-js"></i> JavaScript ES6+</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-solid fa-database"></i> SQL & Mongo</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-solid fa-cube"></i> Three.js / WebGL</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-solid fa-chart-column"></i> Pandas & NumPy</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-solid fa-shield-virus"></i> Cybersecurity</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-brands fa-git-alt"></i> Git & GitHub</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-solid fa-wind"></i> Tailwind CSS</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-brands fa-unity"></i> Unity C#</span>
+            <span class="matrix-chip" data-magnetic><i class="fa-solid fa-diagram-project"></i> Feature Eng</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           GATE 4: INTERACTIVE LAB (PLAYABLE GAME + DATA ANALYZER) (Z: 6000)
+           ========================================== -->
+      <section class="dimension-gate gate-interactive" id="gate-4" data-z-origin="6000">
+        <div class="gate-frame wide-frame">
+          <div class="section-header-pill anim-from-top">
+            <span class="sector-code">SECTOR 04</span>
+            <h2 class="sector-title">INTERACTIVE EXPERIENCE LAB</h2>
+            <p class="sector-subtitle">Demonstrating Game Development & Data Analytics proficiencies through real-time interactive widgets.</p>
+          </div>
+
+          <!-- Lab Mode Switcher (Click Events) -->
+          <div class="lab-tabs anim-from-top">
+            <button class="lab-tab-btn active" id="gameLabTabBtn" data-magnetic>
+              <i class="fa-solid fa-gamepad"></i> PLAYABLE MINI-GAME: CYBER BREAKER
+            </button>
+            <button class="lab-tab-btn" id="dataLabTabBtn" data-magnetic>
+              <i class="fa-solid fa-chart-simple"></i> LIVE DATA STREAM VISUALIZER
+            </button>
+          </div>
+
+          <!-- Container A: Playable Mini-Game -->
+          <div class="lab-viewport-box active anim-from-left" id="gameLabContainer">
+            <div class="game-hud-bar">
+              <div class="score-display">SCORE: <span id="gameScoreVal">0000</span></div>
+              <div class="game-status-label">CONTROLS: MOUSE / TOUCH / ARROWS &bull; SPACE TO LAUNCH</div>
+              <div class="high-score-display">BEST: <span id="gameHighScoreVal">0000</span></div>
+            </div>
+
+            <div class="game-canvas-wrapper">
+              <canvas id="miniGameCanvas" width="700" height="380"></canvas>
+              
+              <!-- Start / Game Over Screen Overlay -->
+              <div class="game-overlay-screen" id="gameOverlayScreen">
+                <div class="overlay-modal">
+                  <div class="game-title-badge"><i class="fa-solid fa-cubes-stacked"></i> CYBER BREAKER 2099</div>
+                  <h3 id="gameOverlayHeading">READY TO SMASH THE MATRIX?</h3>
+                  <p id="gameOverlayText">Bounce the quantum plasma sphere, shatter cyber matrix bricks, and catch glowing power-up chips!</p>
+                  <button class="cyber-btn primary-btn" id="gameActionBtn" data-magnetic>
+                    <i class="fa-solid fa-play"></i> <span id="gameActionBtnText">START CYBER BREAKER</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container B: Interactive Data Analytics Sandbox -->
+          <div class="lab-viewport-box anim-from-right" id="dataLabContainer">
+            <div class="data-analyzer-wrapper">
+              <div class="analyzer-controls">
+                <span class="control-label"><i class="fa-solid fa-sliders"></i> DATASET MODEL:</span>
+                <button class="data-mode-btn active" data-dataset="mlfe" data-magnetic>AutoML Feature Matrix</button>
+                <button class="data-mode-btn" data-dataset="session" data-magnetic>Session Workload Trends</button>
+                <button class="data-mode-btn" data-dataset="security" data-magnetic>Threat Anomaly Signals</button>
+                <button class="data-mode-btn" id="regenerateDataBtn" data-magnetic><i class="fa-solid fa-rotate"></i> RE-GENERATE</button>
+              </div>
+
+              <!-- Interactive Chart Canvas -->
+              <div class="data-chart-viewport">
+                <canvas id="dataAnalyticsCanvas" width="720" height="320"></canvas>
+              </div>
+
+              <div class="data-stats-row">
+                <div class="data-stat-card">
+                  <span class="stat-lbl">SAMPLE SIZE</span>
+                  <span class="stat-val" id="dataSampleSize">10,240 rows</span>
+                </div>
+                <div class="data-stat-card">
+                  <span class="stat-lbl">OPTIMAL METRIC</span>
+                  <span class="stat-val" id="dataOptimalMetric">R² = 0.964</span>
+                </div>
+                <div class="data-stat-card">
+                  <span class="stat-lbl">FEATURE DRIFT</span>
+                  <span class="stat-val" id="dataFeatureDrift">&lt; 0.012 (Nominal)</span>
+                </div>
+                <div class="data-stat-card">
+                  <span class="stat-lbl">PIPELINE RUNTIME</span>
+                  <span class="stat-val" id="dataRuntime">14.8 ms</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           GATE 5: QUANTUM UPLINK / CONTACT TERMINAL (Z: 7500)
+           ========================================== -->
+      <section class="dimension-gate gate-contact" id="gate-5" data-z-origin="7500">
+        <div class="gate-frame wide-frame">
+          <div class="section-header-pill anim-from-top">
+            <span class="sector-code">SECTOR 05 // SINGULARITY</span>
+            <h2 class="sector-title">QUANTUM UPLINK & TRANSMISSION</h2>
+            <p class="sector-subtitle">Initiate contact with Sanjay S for collaborative projects, engineering roles, and innovative ventures.</p>
+          </div>
+
+          <div class="contact-terminal-grid">
+
+            <!-- Left: Direct Channels & Student Info -->
+            <div class="direct-channels-card anim-from-left" data-tilt>
+              <div class="channel-header">
+                <div class="chan-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                <div>
+                  <h3 class="chan-title">TRANSMISSION CHANNELS</h3>
+                  <span class="chan-status"><span class="live-dot"></span> DIRECT FREQUENCY OPEN</span>
+                </div>
+              </div>
+
+              <div class="contact-methods">
+                <!-- Direct WhatsApp & Phone Uplink -->
+                <div class="method-item method-whatsapp" data-magnetic>
+                  <div class="method-icon whatsapp-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                  <div class="method-details">
+                    <span class="method-title"><i class="fa-solid fa-bolt"></i> DIRECT WHATSAPP &amp; PHONE</span>
+                    <span class="method-value" id="phoneCopyTarget">+91 99623 53867</span>
+                    <span class="method-sub">Instant messaging &amp; direct mobile contact</span>
+                  </div>
+                  <div class="method-actions-cluster">
+                    <a href="https://wa.me/919962353867?text=Hi%20Sanjay,%20I%20viewed%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="whatsapp-pill-btn" title="Chat Directly on WhatsApp" data-magnetic>
+                      <i class="fa-brands fa-whatsapp"></i> <span>CHAT</span>
+                    </a>
+                    <button class="copy-pill-btn" id="copyPhoneBtn" title="Copy Phone Number" data-magnetic>
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="method-item" data-magnetic>
+                  <div class="method-icon"><i class="fa-solid fa-envelope"></i></div>
+                  <div class="method-details">
+                    <span class="method-title">PRIMARY EMAIL</span>
+                    <span class="method-value" id="emailCopyTarget">nscare62@gmail.com</span>
+                  </div>
+                  <button class="copy-pill-btn" id="copyEmailBtn" title="Copy Email to Clipboard" data-magnetic>
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+
+                <div class="method-item" data-magnetic>
+                  <div class="method-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                  <div class="method-details">
+                    <span class="method-title">COLLEGE / CAMPUS</span>
+                    <span class="method-value">Gojan School of Business and Technology</span>
+                    <span class="method-sub">B.Tech AIDS — 2nd Year</span>
+                  </div>
+                </div>
+
+                <div class="method-item" data-magnetic>
+                  <div class="method-icon"><i class="fa-solid fa-location-dot"></i></div>
+                  <div class="method-details">
+                    <span class="method-title">LOCATION BASE</span>
+                    <span class="method-value">Tamil Nadu, India</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Social Transceiver Hub -->
+              <div class="social-channels-cluster">
+                <a href="https://wa.me/919962353867?text=Hi%20Sanjay,%20I%20viewed%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="social-chip whatsapp-chip" data-magnetic>
+                  <i class="fa-brands fa-whatsapp"></i> <span>WhatsApp (+91 99623 53867)</span>
+                </a>
+                <a href="tel:+919962353867" class="social-chip" data-magnetic>
+                  <i class="fa-solid fa-phone"></i> <span>Call: 9962353867</span>
+                </a>
+                <a href="mailto:nscare62@gmail.com" class="social-chip" data-magnetic>
+                  <i class="fa-solid fa-paper-plane"></i> <span>Email</span>
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-chip" data-magnetic>
+                  <i class="fa-brands fa-github"></i> <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-chip" data-magnetic>
+                  <i class="fa-brands fa-linkedin-in"></i> <span>LinkedIn</span>
+                </a>
+              </div>
+
+              <!-- Warp to Surface Button -->
+              <div class="warp-return-box">
+                <button class="warp-return-btn" id="warpToOriginBtn" data-magnetic>
+                  <i class="fa-solid fa-arrow-turn-up"></i>
+                  <span>WARP BACK TO SURFACE [GATE 0]</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right: Interactive Sci-Fi Dispatch Form -->
+            <div class="interactive-form-card anim-from-right" data-tilt>
+              <div class="form-header-bar">
+                <span class="win-dot"></span>
+                <span class="win-title">DISPATCH MESSAGE MATRIX</span>
+                <span class="win-tag">ENCRYPTED // TLS 1.3</span>
+              </div>
+
+              <form class="sci-fi-form" id="contactForm">
+                <div class="form-row">
+                  <div class="input-box">
+                    <label for="senderName"><i class="fa-solid fa-user-astronaut"></i> YOUR CODENAME / NAME</label>
+                    <input type="text" id="senderName" name="senderName" placeholder="e.g. Alex Mercer" required autocomplete="off">
+                    <span class="focus-glow"></span>
+                  </div>
+                  <div class="input-box">
+                    <label for="senderEmail"><i class="fa-solid fa-at"></i> COMM FREQUENCY / EMAIL</label>
+                    <input type="email" id="senderEmail" name="senderEmail" placeholder="alex@domain.com" required autocomplete="off">
+                    <span class="focus-glow"></span>
+                  </div>
+                </div>
+
+                <div class="input-box">
+                  <label for="senderSubject"><i class="fa-solid fa-tag"></i> SUBJECT / PROJECT TYPE</label>
+                  <select id="senderSubject" name="senderSubject">
+                    <option value="Full Stack Project Collaboration">Full Stack Project Collaboration</option>
+                    <option value="Data Analytics / AI Consulting">Data Analytics / AI Consulting</option>
+                    <option value="Game Development Venture">Game Development Venture</option>
+                    <option value="Internship / Engineering Opportunity">Internship / Engineering Opportunity</option>
+                    <option value="Technical Networking & Discussion">Technical Networking & Discussion</option>
+                  </select>
+                  <span class="focus-glow"></span>
+                </div>
+
+                <div class="input-box">
+                  <label for="senderMessage"><i class="fa-solid fa-message"></i> ENCRYPTED MESSAGE</label>
+                  <textarea id="senderMessage" name="senderMessage" rows="4" placeholder="Transmit details of your project or opportunity..." required></textarea>
+                  <span class="focus-glow"></span>
+                </div>
+
+                <div class="form-action-row" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
+                  <button type="submit" class="cyber-btn primary-btn submit-btn" id="formSubmitBtn" style="flex: 1; min-width: 200px;" data-magnetic>
+                    <span class="btn-glow"></span>
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span id="submitBtnText">TRANSMIT VIA WHATSAPP</span>
+                  </button>
+                  <a href="https://wa.me/919962353867?text=Hi%20Sanjay,%20I%20viewed%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="cyber-btn whatsapp-btn" id="directWhatsAppBtn" data-magnetic>
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>DIRECT CHAT</span>
+                  </a>
+                </div>
+
+                <div class="form-feedback-msg" id="formFeedback"></div>
+              </form>
+            </div>
+
+          </div>
+
+          <!-- Terminal Signature -->
+          <div class="singularity-signature anim-from-bottom">
+            <p>DESIGNED & ENGINEERED BY <span class="glow-author">SANJAY S</span> // B.TECH AIDS 2ND YEAR</p>
+            <p class="school-cite">GOJAN SCHOOL OF BUSINESS AND TECHNOLOGY</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ============================================================
+       PROJECT DEEP INSPECTION MODAL (CLICK EVENT REVEAL)
+       ============================================================ -->
+  <div class="project-modal-backdrop" id="projectModalBackdrop">
+    <div class="project-modal-window" id="projectModalWindow">
+      <div class="modal-header-bar">
+        <div class="modal-left-meta">
+          <span class="modal-status-badge"><i class="fa-solid fa-circle-check"></i> SYSTEM VERIFIED</span>
+          <span class="modal-proj-id" id="modalProjId">#01 // SVARSH-TECH</span>
+        </div>
+        <button class="modal-close-btn" id="modalCloseBtn" data-magnetic aria-label="Close Inspection Modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body-content" id="modalBodyContent">
+        <!-- Injected Dynamically by main.js with deep project details -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Bar for Copy & Actions -->
+  <div class="cyber-toast" id="cyberToast">
+    <i class="fa-solid fa-circle-info toast-icon"></i>
+    <span class="toast-message" id="toastMessage">Signal received!</span>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/tunnel3d.js"></script>
+  <script src="js/depthEngine.js"></script>
+  <script src="js/gameLab.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

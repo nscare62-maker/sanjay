@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanjay S - Official Resume // B.Tech AIDS</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      padding: 30px 20px;
+      line-height: 1.5;
+    }
+
+    .resume-sheet {
+      max-width: 820px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 44px 50px;
+      border-radius: 8px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      border-top: 5px solid #7c3aed;
+    }
+
+    .header-section {
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 20px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-name {
+      font-size: 30px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .header-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #7c3aed;
+      margin-top: 4px;
+    }
+
+    .header-academic {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .contact-info {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #475569;
+      text-align: right;
+      line-height: 1.8;
+    }
+
+    .contact-info a {
+      color: #7c3aed;
+      text-decoration: none;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 5px;
+      margin-top: 20px;
+      margin-bottom: 12px;
+    }
+
+    .summary-text {
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 8px 14px;
+      font-size: 12.5px;
+      margin-bottom: 8px;
+    }
+
+    .skill-cat {
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .skill-items {
+      color: #1e293b;
+    }
+
+    .project-entry {
+      margin-bottom: 14px;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3px;
+    }
+
+    .project-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .project-role {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7c3aed;
+    }
+
+    .project-desc {
+      font-size: 12.5px;
+      color: #334155;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .project-tech {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .edu-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .edu-degree {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .edu-school {
+      font-size: 12.5px;
+      color: #475569;
+    }
+
+    .edu-timeline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: #7c3aed;
+      font-weight: 600;
+    }
+
+    .action-bar {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: #7c3aed;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+      transition: background 0.2s;
+    }
+
+    .print-btn:hover {
+      background: #6d28d9;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .resume-sheet {
+        box-shadow: none;
+        padding: 0;
+        border: none;
+      }
+      .action-bar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="resume-sheet">
+    <div class="header-section">
+      <div>
+        <h1 class="header-name">SANJAY S.</h1>
+        <div class="header-title">Full Stack Developer &bull; Data Analyst &bull; Game Developer</div>
+        <div class="header-academic">B.Tech Artificial Intelligence and Data Science (2nd Year Scholar)</div>
+        <div class="header-academic">Gojan School of Business and Technology</div>
+      </div>
+      <div class="contact-info">
+        <div>Phone / WhatsApp: <a href="https://wa.me/919962353867" target="_blank">+91 99623 53867</a></div>
+        <div>Email: <a href="mailto:nscare62@gmail.com">nscare62@gmail.com</a></div>
+        <div>Location: Chennai, Tamil Nadu, India</div>
+        <div>GitHub: <a href="https://github.com">github.com/sanjay-s</a></div>
+        <div>Portfolio: 3D Dimension Gate Engine</div>
+      </div>
+    </div>
+
+    <div class="section-title">Professional Summary</div>
+    <p class="summary-text">
+      Passionate technologist pursuing B.Tech Artificial Intelligence &amp; Data Science at Gojan School of Business and Technology. Specialized in building production-ready full-stack web applications, designing automated machine learning pipelines, and developing real-time interactive game engines with performant mathematical loops and aesthetic user interfaces.
+    </p>
+
+    <div class="section-title">Technical Expertise</div>
+    <div class="skills-grid">
+      <div class="skill-cat">Full Stack:</div>
+      <div class="skill-items">React.js, Node.js, Express, JavaScript ES6+, TypeScript, Redux Toolkit, Tailwind CSS, REST APIs, HTML5, WebSockets</div>
+      <div class="skill-cat">AI &amp; Data:</div>
+      <div class="skill-items">Python, Pandas, NumPy, Scikit-Learn, Automated Feature Engineering (AutoML), Data Cleaning, EDA, Model Benchmarks</div>
+      <div class="skill-cat">Game Dev &amp; 3D:</div>
+      <div class="skill-items">WebGL, Three.js 3D Math, HTML5 Canvas Rendering, Vector Physics, State Machines, Unity C# Architecture</div>
+      <div class="skill-cat">Databases &amp; Tools:</div>
+      <div class="skill-items">MongoDB, SQL, Git &amp; GitHub, Postman, Vite, Vercel, IndexedDB, JWT Authentication</div>
+    </div>
+
+    <div class="section-title">Flagship Engineering Projects</div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">1. Svarsh Technology Website</span>
+        <span class="project-role">Lead Full Stack Architecture</span>
+      </div>
+      <p class="project-desc">High-performance corporate technology portal engineered with dynamic service catalogs, quotation pipelines, sub-second load times, and responsive fluid layout.</p>
+      <div class="project-tech">Stack: React.js, Node.js, Express, Tailwind CSS, REST APIs, MongoDB</div>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">2. Svarsh E-commerce &amp; LMS Platform</span>
+        <span class="project-role">Enterprise Full Stack Engine</span>
+      </div>
+      <p class="project-desc">Unified digital commerce and course learning management system featuring secure JWT authentication, role-based dashboards, video progress tracking, and cart checkout.</p>
+      <div class="project-tech">Stack: MERN Stack (React, Redux, Node.js, Express, MongoDB), JWT Auth, CDN Streaming</div>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">3. CyberGuard App</span>
+        <span class="project-role">Cybersecurity &amp; Telemetry</span>
+      </div>
+      <p class="project-desc">Real-time threat monitoring and vulnerability auditing dashboard featuring WebSocket telemetry streaming, entropy packet analysis, and security posture auditing.</p>
+      <div class="project-tech">Stack: Python, Node.js, WebSockets, Real-Time Chart Visualizer, Security APIs</div>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">4. WorkSessionTracker App</span>
+        <span class="project-role">Productivity Analytics Suite</span>
+      </div>
+      <p class="project-desc">Precision session timer and productivity engine utilizing Web Workers for drift-free background intervals and IndexedDB for instantaneous local session storage.</p>
+      <div class="project-tech">Stack: React.js, Web Workers, IndexedDB, Canvas Heatmap Analytics</div>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">5. Retail Website</span>
+        <span class="project-role">E-Commerce Architecture</span>
+      </div>
+      <p class="project-desc">Next-generation retail storefront with instant faceted SKU filtering, live stock synchronization, dynamic cart state management, and optimized checkout flow.</p>
+      <div class="project-tech">Stack: React, TypeScript, Node.js, Express, Tailwind CSS, MongoDB</div>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">6. AutoMLFE Website</span>
+        <span class="project-role">Automated Machine Learning Suite</span>
+      </div>
+      <p class="project-desc">Automated Machine Learning &amp; Feature Engineering tool automating feature extraction, data synthesis, model training, and performance comparison algorithms.</p>
+      <div class="project-tech">Stack: Python, Flask / FastAPI, Pandas, Scikit-Learn, NumPy, Interactive Visualizers</div>
+    </div>
+
+    <div class="section-title">Education</div>
+    <div class="edu-entry">
+      <div>
+        <div class="edu-degree">Bachelor of Technology (B.Tech) - Artificial Intelligence &amp; Data Science</div>
+        <div class="edu-school">Gojan School of Business and Technology &bull; 2nd Year Undergraduate</div>
+      </div>
+      <div class="edu-timeline">2023 &ndash; 2027</div>
+    </div>
+
+    <div class="action-bar">
+      <button class="print-btn" onclick="window.print()">
+        <span>Print or Save as PDF (Ctrl+P)</span>
+      </button>
+    </div>
+  </div>
+
+</body>
+</html>
